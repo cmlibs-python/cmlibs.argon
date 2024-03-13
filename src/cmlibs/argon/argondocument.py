@@ -212,6 +212,19 @@ class ArgonDocument(object):
         """
         return self._tessellations
 
+    def setTessellationLevel(self, level):
+        """
+        Set the tessellations.
+        """
+        if level == "medium":
+            self._rootRegion.setTessellation("default")
+        else:
+            self._tessellations.setTessellationLevel(level)
+            self._rootRegion.setTessellation("tessellation_%s" % level)
+
+        state = self.serialize()
+        self.deserialize(state)
+
     def findRegion(self, name):
         """
         Find region by name.

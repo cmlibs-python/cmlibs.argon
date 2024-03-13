@@ -27,6 +27,7 @@ class ArgonTessellations(object):
     def __init__(self, zincContext):
         self._zincContext = zincContext
         self._tessellationmodule = zincContext.getTessellationmodule()
+        self._tessellationLevel = "medium"
 
     def getZincContext(self):
         """
@@ -56,4 +57,23 @@ class ArgonTessellations(object):
         """
         tessellationsDescription = self._tessellationmodule.writeDescription()
         dictOutput = json.loads(tessellationsDescription)
+        if self._tessellationLevel != "medium":
+            new_tessellation = {
+                "CircleDivisions": 12,
+                "MinimumDivisions": [
+                    1
+                ],
+                "Name": "tessellation_%s" % self._tessellationLevel,
+                "RefinementFactors": [
+                    1 if self._tessellationLevel == "low" else 12
+                ]
+            }
+            dictOutput["Tessellations"].append(new_tessellation)
+
         return dictOutput
+
+    def setTessellationLevel(self, level):
+        """
+        Set tessellation level.
+        """
+        self._tessellationLevel = level

@@ -31,6 +31,7 @@ class ArgonRegion(object):
         self._children = []
         self._modelSources = []
         self._zincRegion = zincRegion
+        self._tessellation_name = None
         # record whether region was created by ancestor model source; see: _reloadModelSources
         self._ancestorModelSourceCreated = False
         # callback class, only for root region
@@ -289,7 +290,9 @@ class ArgonRegion(object):
             scene = self._zincRegion.getScene()
             sceneDescription = scene.writeDescription()
             dictOutput["Scene"] = json.loads(sceneDescription)
-
+            if self._tessellation_name:
+                for g in dictOutput["Scene"]["Graphics"]:
+                    g["Tessellation"] = self._tessellation_name
         if self._children:
             tmpOutput = []
             for child in self._children:
@@ -297,6 +300,9 @@ class ArgonRegion(object):
             dictOutput["ChildRegions"] = tmpOutput
 
         return dictOutput
+
+    def setTessellation(self, tessellation_name):
+        self._tessellation_name = tessellation_name
 
     def getDisplayName(self):
         """
