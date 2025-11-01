@@ -15,7 +15,6 @@
 """
 from cmlibs.zinc.sceneviewer import Sceneviewer
 
-
 SceneviewerProjectionModeMap = {
     Sceneviewer.PROJECTION_MODE_PARALLEL: "PARALLEL",
     Sceneviewer.PROJECTION_MODE_PERSPECTIVE: "PERSPECTIVE"
@@ -196,27 +195,18 @@ class ArgonSceneviewer(object):
 
         :return: Python JSON object containing the JSON description of Argon sceneviewer object.
         """
-        d = {}
-        d["AntialiasSampling"] = self._anti_alias_sampling
-        d["BackgroundColourRGB"] = self._background_colour_RGB
-        d["EyePosition"] = self._eye_position
-        d["FarClippingPlane"] = self._far_clipping_plane
-        d["LightingLocalViewer"] = self._lighting_local_viewer
-        d["LightingTwoSided"] = self._lighting_two_sided
-        d["LookatPosition"] = self._lookat_position
-        d["NearClippingPlane"] = self._near_clipping_plane
-        d["PerturbLinesFlag"] = self._perturb_lines_flag
-        d["ProjectionMode"] = SceneviewerProjectionModeEnumToString(self._projection_mode)
-        d["Scene"] = self._scene
-        d["Scenefilter"] = self._scene_filter
-        d["TranslationRate"] = self._translation_rate
-        d["TransparencyMode"] = SceneviewerTransparencyModeEnumToString(self._transparency_mode)
-        d["TransparencyLayers"] = self._transparency_layers
-        d["TumbleRate"] = self._tumble_rate
-        d["UpVector"] = self._up_vector
-        d["ViewAngle"] = self._view_angle
-        d["ZoomRate"] = self._zoom_rate
-        return d
+        return {
+            "AntialiasSampling": self._anti_alias_sampling, "BackgroundColourRGB": self._background_colour_RGB,
+            "EyePosition": self._eye_position, "FarClippingPlane": self._far_clipping_plane,
+            "LightingLocalViewer": self._lighting_local_viewer, "LightingTwoSided": self._lighting_two_sided,
+            "LookatPosition": self._lookat_position, "NearClippingPlane": self._near_clipping_plane,
+            "PerturbLinesFlag": self._perturb_lines_flag,
+            "ProjectionMode": SceneviewerProjectionModeEnumToString(self._projection_mode), "Scene": self._scene,
+            "Scenefilter": self._scene_filter, "TranslationRate": self._translation_rate,
+            "TransparencyMode": SceneviewerTransparencyModeEnumToString(self._transparency_mode),
+            "TransparencyLayers": self._transparency_layers, "TumbleRate": self._tumble_rate, "UpVector": self._up_vector,
+            "ViewAngle": self._view_angle, "ZoomRate": self._zoom_rate
+        }
 
 
 default_anti_alias_sampling = 0

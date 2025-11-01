@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=61.0", "setuptools_scm>=8.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools-git-versioning]
+enabled = true
+
+[project]
+name = "cmlibs.argon"
+dynamic = ["version"]
+keywords = ["Argon", "ArgonDocument", "CMLibs", "Zinc"]
+readme = "README.rst"
+license = "Apache-2.0"
+authors = [
+    { name="Hugh Sorby", email="h.sorby@auckland.ac.nz" },
+]
+dependencies = [
+    "packaging",
+    "cmlibs.zinc >= 4.1.3"
+]
+description = "CMLibs Argon visualisation descriptions."
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Medical Science Apps.",
+]
+
+[project.urls]
+Homepage = "https://cmlibs.org"
+Repository = "https://github.com/CMLibs-Python/cmlibs.argon"
+
+[tool.setuptools_scm]

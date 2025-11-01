@@ -28,7 +28,7 @@ def _file_name_to_relative_path(file_name, base_path):
 
 class ArgonModelSourceFile(object):
 
-    def __init__(self, file_name=None, dict_input=None):
+    def __init__(self, file_name=None, dict_input=None, base_path=None):
         self._time = None
         self._format = None
         self._edit = False
@@ -36,7 +36,7 @@ class ArgonModelSourceFile(object):
         if file_name is not None:
             self._file_name = file_name
         else:
-            self._deserialize(dict_input)
+            self._deserialize(dict_input, base_path)
 
     def getType(self):
         """
@@ -145,9 +145,12 @@ class ArgonModelSourceFile(object):
         """
         self._edit = edit
 
-    def _deserialize(self, dict_input):
+    def _deserialize(self, dict_input, reference_dir):
         # convert to absolute file path so can save Neon file to new location and get correct relative path
-        self._file_name = os.path.abspath(dict_input["FileName"])
+        if reference_dir is not None:
+            self._file_name = os.path.abspath(os.path.join(reference_dir, dict_input["FileName"]))
+        else:
+            self._file_name = os.path.abspath(dict_input["FileName"])
         if "Edit" in dict_input:
             self._edit = dict_input["Edit"]
         if "Format" in dict_input:
@@ -175,7 +178,7 @@ class ArgonModelSourceFile(object):
         return dict_output
 
 
-def deserializeArgonModelSource(dict_input):
+def deserializeArgonModelSource(dict_input, base_path=None):
     """
     Factory method for creating the appropriate neon model source type from the dict serialization
     """
@@ -184,7 +187,7 @@ def deserializeArgonModelSource(dict_input):
 
     typeString = dict_input["Type"]
     if typeString == "FILE":
-        modelSource = ArgonModelSourceFile(dict_input=dict_input)
+        modelSource = ArgonModelSourceFile(dict_input=dict_input, base_path=base_path)
     else:
         raise ArgonError("Model source has unrecognised Type " + typeString)
     return modelSource

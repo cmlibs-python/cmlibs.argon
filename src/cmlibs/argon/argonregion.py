@@ -193,7 +193,7 @@ class ArgonRegion(object):
             count += 1
         return None
 
-    def deserialize(self, dictInput):
+    def deserialize(self, dictInput, base_path=None):
         """
         Read the JSON description to the argon region object. This will change the settings of ArgonRegion Object.
 
@@ -204,7 +204,7 @@ class ArgonRegion(object):
             if "Sources" in model:
                 try:
                     for dictModelSource in model["Sources"]:
-                        modelSource = deserializeArgonModelSource(dictModelSource)
+                        modelSource = deserializeArgonModelSource(dictModelSource, base_path=base_path)
                         if modelSource:
                             self._modelSources.append(modelSource)
                 except ArgonError as neonError:
@@ -260,7 +260,7 @@ class ArgonRegion(object):
                 neonChild = ArgonRegion(childName, zincChild, self)
                 neonChild._ancestorModelSourceCreated = ancestorModelSourceCreated
                 self._children.append(neonChild)
-                neonChild.deserialize(dictChild)
+                neonChild.deserialize(dictChild, base_path=base_path)
         self._discoverNewZincRegions()
 
     def serialize(self, basePath=None):

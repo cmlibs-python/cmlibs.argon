@@ -119,7 +119,7 @@ class ArgonDocument(object):
             zincRootRegion = changedRegion.getZincRegion()
             self._zincContext.setDefaultRegion(zincRootRegion)
 
-    def deserialize(self, state):
+    def deserialize(self, state, base_path=None):
         """
         Read the JSON description to the argon document object. This will change the settings of ArgonDocument Object.
 
@@ -145,7 +145,7 @@ class ArgonDocument(object):
             self._materials.deserialize(d["Materials"])
         if "Views" in d:
             self._view_manager.deserialize(d["Views"])
-        self._rootRegion.deserialize(d["RootRegion"])
+        self._rootRegion.deserialize(d["RootRegion"], base_path)
 
     def serialize(self, base_path=None):
         """

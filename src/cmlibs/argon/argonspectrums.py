@@ -117,11 +117,11 @@ class ArgonSpectrums(object):
         colourBar = glyphmodule.createGlyphColourBar(spectrum)
         tmpName = glyphName
         i = 1
-        while (colourBar.setName(tmpName) != ZINC_OK):
+        while colourBar.setName(tmpName) != ZINC_OK:
             tmpName = glyphName + str(i)
             i += 1
         colourBar.setManaged(True)
-        colourBar.setCentre([-0.9, 0.0, 0.5])
+        colourBar.setCentre([0.0, 0.0, 0.0])
         colourBar.setAxis([0.0, 1.6, 0.0])  # includes length
         colourBar.setSideAxis([0.06, 0.0, 0.0])  # includes radius
         colourBar.setExtendLength(0.06)
