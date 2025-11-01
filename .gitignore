@@ -132,3 +132,4 @@ dmypy.json
 # Sphinx mock directory
 docs/mock/
 
+.idea/
